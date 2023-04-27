@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 250, 249, 249),
         elevation: 0,
-        actions: MyAppBar(kTextLightColor),
+        actions: myAppBar(kTextLightColor),
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: size.height * 0.02),
+            // ignore: prefer_const_constructors
             CategoryList(),
             const HomeScreenProducts(),
           ],
@@ -43,12 +44,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-List<IconButton> MyAppBar(color) {
+List<IconButton> myAppBar(color) {
   return [
     IconButton(
       onPressed: () {},
       icon: Icon(
-        Icons.search,
+        Icons.favorite_border_outlined,
         color: color,
       ),
     ),

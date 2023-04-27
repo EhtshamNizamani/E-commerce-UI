@@ -1,27 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:e_commerce_app_ui/datta/product_list.dart';
+import 'package:e_commerce_app_ui/features/home/bloc/home_bloc.dart';
+import 'package:e_commerce_app_ui/features/home/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:e_commerce_app_ui/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../cart/bloc/cart_bloc.dart';
 import '../widget/cart_item_count.dart';
 import 'home_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  final Color color;
-  final String image;
-  final int productId;
-  final int price;
-  final String productName;
-  final int size;
-  const ProductDetailsScreen(
-      {required this.productId,
-      required this.image,
-      required this.color,
-      required this.price,
-      required this.productName,
-      required this.size,
-      Key? key})
+  final Product product;
+  const ProductDetailsScreen({required this.product, Key? key})
       : super(key: key);
 
   @override
@@ -34,11 +27,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: widget.color,
+      backgroundColor: widget.product.color,
       appBar: AppBar(
-          backgroundColor: widget.color,
+          backgroundColor: widget.product.color,
           elevation: 0,
-          actions: MyAppBar(Colors.white70)),
+          actions: myAppBar(Colors.white70)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -62,7 +55,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.productName,
+                          widget.product.title,
                           style: const TextStyle(color: Colors.white),
                         ),
                         const Text(
@@ -89,7 +82,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '\$${widget.price.toString()}',
+                                      '\$${widget.product.price.toString()}',
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500,
@@ -98,9 +91,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ],
                                 ),
                                 Hero(
-                                  tag: widget.productId,
+                                  tag: widget.product.id,
                                   child: Image(
-                                    image: AssetImage(widget.image),
+                                    image: AssetImage(widget.product.image),
                                     width: 250,
                                     fit: BoxFit.fill,
                                   ),
@@ -131,7 +124,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               borderColor: const Color(0xFFFB7883),
                             ),
                             const SizedBox(width: 157),
-                            Text('${widget.size.toString()}cm')
+                            Text('${widget.product.size.toString()}cm')
                           ],
                         ),
                         const SizedBox(height: 30),
@@ -143,11 +136,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const CartItemCount(),
-                            SvgPicture.asset(
-                              'assets/icons/heart.svg',
-                              color: Colors.redAccent,
-                              width: 30,
-                              height: 30,
+                            InkWell(
+                              onTap: () {
+                                context.read<HomeBloc>().add(
+                                    HomeProductWishlistButtonClickedEvent(
+                                        product: widget.product));
+                              },
+                              child: SvgPicture.asset(
+                                'assets/icons/heart.svg',
+                                color: Colors.redAccent,
+                                width: 30,
+                                height: 30,
+                              ),
                             ),
                           ],
                         ),
@@ -161,13 +161,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 width: 58,
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 1, color: widget.color),
+                                        width: 1, color: widget.product.color),
                                     borderRadius: BorderRadius.circular(18)),
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    context.read<HomeBloc>().add(
+                                        HomeProductCartButtonClickedEvent(
+                                            product: widget.product));
+                                  },
                                   icon: SvgPicture.asset(
                                     'assets/icons/add_to_cart.svg',
-                                    color: widget.color,
+                                    color: widget.product.color,
                                   ),
                                 ),
                               ),
@@ -181,11 +185,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                           borderRadius:
                                               BorderRadius.circular(30.0),
                                         ),
-                                        primary:
-                                            widget.color // Background color
+                                        backgroundColor: widget
+                                            .product.color // Background color
                                         ),
                                     onPressed: () {},
-                                    child: Text('Buy Now'),
+                                    child: const Text('Buy Now'),
                                   ),
                                 ),
                               )

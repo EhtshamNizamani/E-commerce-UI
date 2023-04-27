@@ -2,7 +2,7 @@ import 'package:e_commerce_app_ui/constants.dart';
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatefulWidget {
-  CategoryList({Key? key}) : super(key: key);
+  const CategoryList({Key? key}) : super(key: key);
 
   @override
   State<CategoryList> createState() => _CategoryListState();
@@ -11,7 +11,7 @@ class CategoryList extends StatefulWidget {
 class _CategoryListState extends State<CategoryList> {
   int selectedIndex = 0;
 
-  final List<String> ListCategories = [
+  final List<String> listCategories = [
     'Hand Beg',
     'Jewellery',
     'FootWear',
@@ -26,7 +26,7 @@ class _CategoryListState extends State<CategoryList> {
       width: size.width * size.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: ListCategories.length,
+        itemCount: listCategories.length,
         itemBuilder: (context, index) {
           return SizedBox(
             child: Column(
@@ -45,7 +45,7 @@ class _CategoryListState extends State<CategoryList> {
                           });
                         },
                         child: Text(
-                          ListCategories[index],
+                          listCategories[index],
                           style: TextStyle(
                               color: index == selectedIndex
                                   ? kTextColor

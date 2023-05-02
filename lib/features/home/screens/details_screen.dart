@@ -1,14 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:e_commerce_app_ui/datta/product_list.dart';
 import 'package:e_commerce_app_ui/features/home/bloc/home_bloc.dart';
 import 'package:e_commerce_app_ui/features/home/model/product_model.dart';
 import 'package:flutter/material.dart';
-
 import 'package:e_commerce_app_ui/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../cart/bloc/cart_bloc.dart';
 import '../widget/cart_item_count.dart';
 import 'home_screen.dart';
 
@@ -31,7 +27,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
           backgroundColor: widget.product.color,
           elevation: 0,
-          actions: myAppBar(Colors.white70)),
+          actions: myAppBar(context, Colors.white70)),
       body: SingleChildScrollView(
         child: Column(
           children: [

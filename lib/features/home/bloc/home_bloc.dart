@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce_app_ui/datta/cart_item.dart';
+import 'package:e_commerce_app_ui/datta/wishlist_item.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../datta/product_list.dart';
@@ -26,7 +27,7 @@ FutureOr<void> homeProductCartButtonClicked(
 
 FutureOr<void> homeProductWishlistButtonClicked(
     HomeProductWishlistButtonClickedEvent event, Emitter<HomeState> emit) {
-  cartItemList.add(event.product);
+  wishlistProductList.add(event.product);
   emit(HomeProductWishlistButtonClickedState());
 }
 

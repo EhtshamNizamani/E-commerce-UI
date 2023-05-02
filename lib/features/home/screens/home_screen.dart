@@ -1,4 +1,5 @@
 import 'package:e_commerce_app_ui/constants.dart';
+import 'package:e_commerce_app_ui/features/wishlist/ui/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/home_screen_products.dart';
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 250, 249, 249),
         elevation: 0,
-        actions: myAppBar(kTextLightColor),
+        actions: myAppBar(context, kTextLightColor),
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -44,10 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-List<IconButton> myAppBar(color) {
+List<IconButton> myAppBar(BuildContext context, color) {
   return [
     IconButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => WishlistScreen()));
+      },
       icon: Icon(
         Icons.favorite_border_outlined,
         color: color,

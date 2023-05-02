@@ -1,3 +1,5 @@
+import 'package:e_commerce_app_ui/datta/wishlist_item.dart';
+import 'package:e_commerce_app_ui/features/wishlist/bloc/wishlist_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,6 +21,11 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<HomeBloc>(
           create: (BuildContext context) => HomeBloc()..add(HomeInitialEvent()),
+        ),
+        BlocProvider<WishlistBloc>(
+          create: (BuildContext context) => WishlistBloc()
+            ..add(ProductWishlistFetchEvent(
+                wihslistProducts: wishlistProductList)),
         ),
       ],
       child: MaterialApp(

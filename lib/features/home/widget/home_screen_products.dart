@@ -26,7 +26,6 @@ class HomeScreenProducts extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is HomeLoadedSuccessState) {}
         switch (state.runtimeType) {
           case HomeLoadingState:
             return const Center(
